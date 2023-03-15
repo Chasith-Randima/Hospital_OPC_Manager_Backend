@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
+// user scheama
+
 const userSchema = new mongoose.Schema(
   {
     name: {
