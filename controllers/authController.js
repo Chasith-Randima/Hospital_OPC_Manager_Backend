@@ -4,6 +4,8 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const { promisify } = require("util");
 
+// auth functions
+
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET_USER, {
     expiresIn: process.env.JWT_EXPIRES_IN,
