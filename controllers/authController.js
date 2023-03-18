@@ -6,12 +6,14 @@ const { promisify } = require("util");
 
 // auth functions
 
+// create token
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET_USER, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
 
+// send jwt token
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
 
@@ -87,6 +89,7 @@ exports.logout = (req, res) => {
   });
 };
 
+// protect function
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
   console.log(req.headers.authorization);
