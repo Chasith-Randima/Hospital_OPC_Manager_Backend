@@ -153,6 +153,8 @@ exports.restricTo = (...roles) => {
   };
 };
 
+// update pasword function
+
 exports.updatePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id).select("+password");
   if (!user) {
