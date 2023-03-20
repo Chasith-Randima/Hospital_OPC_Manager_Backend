@@ -16,6 +16,7 @@ router.use("/search", userController.searchUsers);
 
 router.use("/image/:imageName", userController.getImage);
 
+// protected routes
 router.use(authController.protect);
 router
   .route("/")
