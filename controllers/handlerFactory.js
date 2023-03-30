@@ -4,6 +4,8 @@ const catchAsync = require("../utils/catchAsync");
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    console.log(req.body);
+    // console.log(req.headers);
     req.body.createdAt = req.requestTime;
 
     const doc = await Model.create(req.body);
@@ -32,6 +34,12 @@ exports.getOne = (Model, popOptions) =>
           .populate(popOptions[0])
           .populate(popOptions[1])
           .populate(popOptions[2]);
+      } else if (popOptions.length == 4) {
+        query = await Model.findById(req.params.id)
+          .populate(popOptions[0])
+          .populate(popOptions[1])
+          .populate(popOptions[2])
+          .populate(popOptions[3]);
       }
 
       // query = await Model.findById(req.params.id).populate(popOptions[0]);
@@ -52,16 +60,28 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+exports.getAll = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
     if (req.params.id) filter = { user: req.params.id };
+    let features;
 
-    const features = new APIFeatures(Model.find(filter), req.query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
+    if (popOptions) {
+      features = new APIFeatures(
+        Model.find(filter).populate(popOptions[1]).populate(popOptions[0]),
+        req.query
+      )
+        .filter()
+        .sort()
+        .limitFields()
+        .paginate();
+    } else {
+      features = new APIFeatures(Model.find(filter), req.query)
+        .filter()
+        .sort()
+        .limitFields()
+        .paginate();
+    }
 
     const doc = await features.query;
 

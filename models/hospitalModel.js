@@ -120,6 +120,21 @@ hospitalSchema.virtual("users", {
   foreignField: "hospitals",
   localField: "_id",
 });
+// hospitalSchema.virtual("appointments", {
+//   ref: "Appointment",
+//   foreignField: "hospitals",
+//   localField: "_id",
+// });
+// hospitalSchema.virtual("appointments", {
+//   ref: "Appointment",
+//   foreignField: "hospitals",
+//   localField: "_id",
+// });
+hospitalSchema.virtual("doctors", {
+  ref: "Doctor",
+  foreignField: "hospitals",
+  localField: "_id",
+});
 
 // hospitalSchema.index({ price: 1, ratingsAverage: -1 });
 // hospitalSchema.index({ slug: 1 });

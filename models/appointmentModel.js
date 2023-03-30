@@ -27,7 +27,7 @@ const appointmentSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.ObjectId,
         ref: "Ticket",
-        required: [true, "Appointment must belong to a hospital"],
+        // required: [true, "Appointment must belong to a hospital"],
       },
     ],
     patients: [
@@ -52,7 +52,7 @@ const appointmentSchema = new mongoose.Schema(
   }
 );
 
-appointmentSchema.pre(/^find/, function (next) {
+appointmentSchema.pre(/^findOne/, function (next) {
   this.populate({
     path: "hospitals",
     // select: '-__v -passwordChangedAt',

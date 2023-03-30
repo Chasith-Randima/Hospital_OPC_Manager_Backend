@@ -16,7 +16,21 @@ exports.getOneHospital = factory.getOne(Hospital, [
     path: "users",
     //   path: "appointments",
   },
+  {
+    path: "doctors",
+    //   path: "appointments",
+  },
 ]);
 exports.getAllHospitals = factory.getAll(Hospital);
+exports.getAllHospitalsFull = factory.getAll(Hospital, [
+  {
+    path: "appointments",
+    //   path: "appointments",
+  },
+  {
+    path: "doctors",
+    //   path: "appointments",
+  },
+]);
 exports.updateOneHospital = factory.updateOne(Hospital);
 exports.deleteOneHospital = factory.deleteOne(Hospital);

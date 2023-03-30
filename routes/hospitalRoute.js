@@ -5,6 +5,8 @@ const authController = require("../controllers/authController");
 const hospitalController = require("../controllers/hospitalController");
 const userController = require("../controllers/userController");
 
+router.get("/full", hospitalController.getAllHospitalsFull);
+
 router
   .route("/")
   .get(hospitalController.getAllHospitals)

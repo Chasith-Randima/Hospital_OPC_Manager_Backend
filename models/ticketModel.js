@@ -41,7 +41,7 @@ const ticketSchema = new mongoose.Schema(
   }
 );
 
-ticketSchema.pre(/^find/, function (next) {
+ticketSchema.pre(/^findOne/, function (next) {
   this.populate({
     path: "patients",
     // select: '-__v -passwordChangedAt',

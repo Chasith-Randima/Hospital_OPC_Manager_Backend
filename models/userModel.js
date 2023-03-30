@@ -47,6 +47,13 @@ const userSchema = new mongoose.Schema(
         required: [true, "Appointment must belong to a hospital"],
       },
     ],
+    tickets: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Ticket",
+        required: [true, "A Ticket must have a pharmacist"],
+      },
+    ],
 
     passwordChangedAt: {
       type: Date,
@@ -57,6 +64,18 @@ const userSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+userSchema.pre(/^findOne/, function (next) {
+  this.populate({
+    path: "tickets",
+    // select: '-__v -passwordChangedAt',
+  });
+  this.populate({
+    path: "hospitals",
+  });
+
+  next();
+});
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
