@@ -18,13 +18,24 @@ const ticketSchema = new mongoose.Schema(
         required: [true, "Ticket must belong to a appointment"],
       },
     ],
+    doctors: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Doctor",
+        required: [true, "Ticket must belong to a appointment"],
+      },
+    ],
     pharmacists: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "User",
-        required: [true, "Ticket must belong to a appointment"],
+        // required: [true, "Ticket must belong to a appointment"],
       },
     ],
+    diagnosisTitle: {
+      type: String,
+      required: [true, "Ticket must have a Title"],
+    },
     diagnosis: {
       type: String,
       required: [true, "Ticket must have a diagnosis.."],
@@ -32,6 +43,11 @@ const ticketSchema = new mongoose.Schema(
     prescription: {
       type: String,
       required: [true, "Ticket must have a prescriptions..."],
+    },
+    active: {
+      type: Boolean,
+      enum: [true, false],
+      default: true,
     },
   },
   {
@@ -51,6 +67,14 @@ ticketSchema.pre(/^findOne/, function (next) {
   });
   this.populate({
     path: "appointment",
+  });
+
+  next();
+});
+ticketSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "doctors",
+    // select: '-__v -passwordChangedAt',
   });
 
   next();

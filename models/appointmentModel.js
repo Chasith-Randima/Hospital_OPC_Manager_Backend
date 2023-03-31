@@ -8,6 +8,11 @@ const appointmentSchema = new mongoose.Schema(
       type: String,
       required: [true, "Appointment must have a patient name.."],
     },
+    active: {
+      type: Boolean,
+      enum: [true, false],
+      default: true,
+    },
     appointmentDate: {
       type: Date,
       required: [true, "A appointment must have a date"],
@@ -63,7 +68,17 @@ appointmentSchema.pre(/^findOne/, function (next) {
   this.populate({
     path: "tickets",
   });
+  this.populate({
+    path: "doctors",
+  });
 
+  next();
+});
+appointmentSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "hospitals",
+    // select: '-__v -passwordChangedAt',
+  });
   next();
 });
 

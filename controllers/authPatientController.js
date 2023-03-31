@@ -98,6 +98,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     token = req.cookies.jwt_patient;
   }
 
+  // console.log(token);
+
   if (!token) {
     return next(
       new AppError("You are not logged in... Please login to get access...")
