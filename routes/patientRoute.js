@@ -12,6 +12,8 @@ router.use(
 
 router.use("/getAllPatientsByCity", patientController.getAllPatientsByCity);
 
+// auth routes
+
 router.post("/signup", authPatient.signup);
 router.post("/login", authPatient.login);
 router.get("/logout", authPatient.logout);

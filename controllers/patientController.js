@@ -7,6 +7,8 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const mongoose = require("mongoose");
 
+// patient controllers
+
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
