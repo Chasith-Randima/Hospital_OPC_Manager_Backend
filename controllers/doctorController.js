@@ -6,6 +6,8 @@ const path = require("path");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
+// doctor functions
+
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {

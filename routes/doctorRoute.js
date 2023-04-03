@@ -4,6 +4,8 @@ const authDoctor = require("../controllers/authDoctorController");
 const doctorController = require("../controllers/doctorController");
 const authController = require("../controllers/authController");
 
+// auth routes
+
 router.post("/signup", authDoctor.signup);
 router.post("/login", authDoctor.login);
 router.get("/logout", authDoctor.logout);
