@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const slugify = require("slugify");
 // const Appointment = require("./appointmentModel");
 
+// ticket model
+
 const ticketSchema = new mongoose.Schema(
   {
     appointment: [
