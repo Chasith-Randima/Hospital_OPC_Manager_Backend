@@ -3,6 +3,8 @@ const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
 const mongoose = require("mongoose");
 
+// appointment functions
+
 exports.createOneAppointment = factory.createOne(Appointment);
 exports.getOneAppointment = factory.getOne(Appointment, [{ path: "tickets" }]);
 exports.getAllAppointment = factory.getAll(Appointment);
@@ -18,7 +20,6 @@ exports.searchAppointment = catchAsync(async (req, res, next) => {
 
   date2 = new Date(date2).toISOString();
 
-  //   console.log(req.query);
   if (search.length != 0) {
     await Appointment.find({
       arrived: true,

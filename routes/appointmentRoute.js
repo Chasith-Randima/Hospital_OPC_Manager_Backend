@@ -12,7 +12,7 @@ router.use(
   "/appointmentTimeStats",
   appointmentController.getAppointmentStatsclsoded
 );
-// router.use("/appointmentTimeStats", appointmentController.getAppointmentStats);
+
 router.use(
   "/appointmentTimeStatsByMonth/",
   appointmentController.getAppointmentStatsByMonth
