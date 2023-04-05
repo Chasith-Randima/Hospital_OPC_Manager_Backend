@@ -27,6 +27,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.disable("etag");
+
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/doctors", doctorRouter);
 app.use("/api/v1/patients", patientRouter);

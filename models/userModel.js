@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "User must belong to a Hospital"],
     },
+    images: [String],
     email: {
       type: String,
       required: [true, "User must have a email...Please tell us your email..."],

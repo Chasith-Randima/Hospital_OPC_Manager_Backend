@@ -87,6 +87,7 @@ exports.logout = (req, res) => {
 };
 
 exports.protect = catchAsync(async (req, res, next) => {
+  console.log(req.headers.authorization);
   let token;
 
   if (
@@ -110,6 +111,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     token,
     process.env.JWT_SECRET_PATIENT
   );
+
+  console.log(decoded);
 
   const currentPatient = await Patient.findById(decoded.id);
 

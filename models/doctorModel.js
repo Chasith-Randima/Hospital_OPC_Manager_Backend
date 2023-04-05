@@ -24,6 +24,7 @@ const doctorSchema = new mongoose.Schema(
       enum: ["doctor"],
       default: "doctor",
     },
+    images: [String],
     password: {
       type: String,
       required: [true, "Please choose a password..."],

@@ -7,6 +7,19 @@ const userController = require("../controllers/userController");
 
 router.get("/full", hospitalController.getAllHospitalsFull);
 
+router.patch(
+  "/updatePatientsArray/:id",
+  hospitalController.updateHospitalArrays
+);
+router.patch(
+  "/deletePatientsArray/:id",
+  hospitalController.deleteHospitalArrays
+);
+
+router.patch("/updateHospitalNew/:id", hospitalController.updateHospitalNew);
+
+router.use("/search", hospitalController.searchHospitals);
+
 router
   .route("/")
   .get(hospitalController.getAllHospitals)

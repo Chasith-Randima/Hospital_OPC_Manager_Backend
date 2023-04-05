@@ -8,16 +8,28 @@ router.post("/signup", authController.signup);
 router.post("/login", authController.login);
 router.get("/logout", authController.logout);
 
+router.use("/search", userController.searchUsers);
+
+router.use("/image/:imageName", userController.getImage);
+
 router.use(authController.protect);
 router
   .route("/")
   .get(userController.getAllUser)
-  .post(userController.createOneUser);
+  .post(
+    userController.uploadUserImages,
+    userController.resizeUserImages,
+    userController.createOneUser
+  );
 
 router
   .route("/:id")
   .get(userController.getOneUser)
-  .patch(userController.updateOneUser)
+  .patch(
+    userController.uploadUserImages,
+    userController.resizeUserImages,
+    userController.updateOneUser
+  )
   .delete(userController.deleteOneUser);
 
 router.patch("/updateMyPassword/:id", authController.updatePassword);

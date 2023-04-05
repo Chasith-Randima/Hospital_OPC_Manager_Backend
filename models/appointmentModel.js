@@ -8,8 +8,11 @@ const appointmentSchema = new mongoose.Schema(
       type: String,
       required: [true, "Appointment must have a patient name.."],
     },
+    hospitalName: {
+      type: String,
+    },
     active: {
-      type: Boolean,
+      type: String,
       enum: [true, false],
       default: true,
     },

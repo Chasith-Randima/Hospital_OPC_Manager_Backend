@@ -23,6 +23,7 @@ const patientSchema = new mongoose.Schema(
       type: String,
       required: [true, "A patient must have a city..."],
     },
+    images: [String],
     email: {
       type: String,
       required: [

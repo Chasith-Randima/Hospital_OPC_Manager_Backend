@@ -7,17 +7,29 @@ router.post("/signup", authDoctor.signup);
 router.post("/login", authDoctor.login);
 router.get("/logout", authDoctor.logout);
 
-router.use(authDoctor.protect);
+router.use("/image/:imageName", doctorController.getImage);
+
+// router.use(authDoctor.protect);
 
 router
   .route("/")
   .get(doctorController.getAllDoctors)
-  .post(doctorController.createOneDoctor);
+  .post(
+    authDoctor.protect,
+    doctorController.uploadUserImages,
+    doctorController.resizeUserImages,
+    doctorController.createOneDoctor
+  );
 
 router
   .route("/:id")
   .get(doctorController.getOneDoctor)
-  .patch(doctorController.updateOneDoctor)
+  .patch(
+    authDoctor.protect,
+    doctorController.uploadUserImages,
+    doctorController.resizeUserImages,
+    doctorController.updateOneDoctor
+  )
   .delete(doctorController.deleteOneDoctor);
 
 router.patch("/updateMyPassword/:id", authDoctor.updatePassword);

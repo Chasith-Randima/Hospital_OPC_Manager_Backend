@@ -69,6 +69,34 @@ const hospitalSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    patients: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Patient",
+        required: [true, "Ticket must belong to a appointment"],
+      },
+    ],
+    doctors: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Doctor",
+        required: [true, "Ticket must belong to a appointment"],
+      },
+    ],
+    users: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: [true, "Ticket must belong to a appointment"],
+      },
+    ],
+    appointments: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Appointment",
+        required: [true, "Ticket must belong to a appointment"],
+      },
+    ],
     // startLocation: {
     //   type: {
     //     type: String,
@@ -105,23 +133,33 @@ const hospitalSchema = new mongoose.Schema(
   }
 );
 
-hospitalSchema.virtual("appointments", {
-  ref: "Appointment",
-  foreignField: "hospitals",
-  localField: "_id",
+hospitalSchema.pre(/^findOne/, function (next) {
+  this.populate({
+    path: "patients",
+    // select: '-__v -passwordChangedAt',
+  });
+  this.populate({
+    path: "users",
+  });
+  this.populate({
+    path: "appointments",
+  });
+
+  next();
 });
-hospitalSchema.virtual("patients", {
-  ref: "Patient",
-  foreignField: "hospitals",
-  localField: "_id",
-});
-hospitalSchema.virtual("users", {
-  ref: "User",
-  foreignField: "hospitals",
-  localField: "_id",
-});
+
 // hospitalSchema.virtual("appointments", {
 //   ref: "Appointment",
+//   foreignField: "hospitals",
+//   localField: "_id",
+// });
+// hospitalSchema.virtual("patients", {
+//   ref: "Patient",
+//   foreignField: "hospitals",
+//   localField: "_id",
+// });
+// hospitalSchema.virtual("users", {
+//   ref: "User",
 //   foreignField: "hospitals",
 //   localField: "_id",
 // });
@@ -130,11 +168,16 @@ hospitalSchema.virtual("users", {
 //   foreignField: "hospitals",
 //   localField: "_id",
 // });
-hospitalSchema.virtual("doctors", {
-  ref: "Doctor",
-  foreignField: "hospitals",
-  localField: "_id",
-});
+// hospitalSchema.virtual("appointments", {
+//   ref: "Appointment",
+//   foreignField: "hospitals",
+//   localField: "_id",
+// });
+// hospitalSchema.virtual("doctors", {
+//   ref: "Doctor",
+//   foreignField: "hospitals",
+//   localField: "_id",
+// });
 
 // hospitalSchema.index({ price: 1, ratingsAverage: -1 });
 // hospitalSchema.index({ slug: 1 });

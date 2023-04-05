@@ -91,6 +91,7 @@ exports.getAll = (Model, popOptions) =>
       .limitFields();
 
     let totalCount = await count.query.countDocuments();
+    console.log(doc)
 
     res.status(200).json({
       status: "success",
