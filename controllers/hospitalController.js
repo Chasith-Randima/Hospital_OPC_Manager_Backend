@@ -5,6 +5,8 @@ const multer = require("multer");
 const sharp = require("sharp");
 const path = require("path");
 
+// hospital functions
+
 exports.hospitalNameId = catchAsync(async (req, res, next) => {
   const doc = await Hospital.find({}).select({ name: 1, _id: 1 });
 
