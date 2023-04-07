@@ -5,6 +5,8 @@ const ticketController = require("../controllers/ticketController");
 const authDoctor = require("../controllers/authDoctorController");
 const authController = require("../controllers/authController");
 
+// all tckets routes
+
 router.use("/search", ticketController.searchTicket);
 
 router

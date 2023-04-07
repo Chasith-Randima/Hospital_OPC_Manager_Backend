@@ -2,6 +2,8 @@ const Ticket = require("../models/ticketModel");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
 
+// tickets functions
+
 exports.createOneTicket = factory.createOne(Ticket);
 exports.getOneTicket = factory.getOne(Ticket);
 exports.getAllTickets = factory.getAll(Ticket);
