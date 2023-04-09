@@ -1,3 +1,5 @@
+// class for sorting paginationa and filtering and more
+
 class APIFeatures {
   constructor(query, queryString) {
     this.query = query;
