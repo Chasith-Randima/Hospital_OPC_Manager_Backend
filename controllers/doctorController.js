@@ -79,7 +79,7 @@ exports.deleteOneDoctor = factory.deleteOne(Doctor);
 
 exports.searchDoctor = catchAsync(async (req, res, next) => {
   const { search } = req.query;
-  //   console.log(req.query);
+
   if (search.length != 0) {
     await Doctor.find({
       $or: [
