@@ -362,6 +362,8 @@ exports.getAppointmentStatsclsoded = catchAsync(async (req, res, next) => {
 //     // },
 //   });
 // });
+
+// aggregate functions
 // ===================== NOT DOING ENYTHING USEFULL ===================================
 exports.getAppointmentStatsMonth = catchAsync(async (req, res, next) => {
   const year = new Date(new Date().getUTCFullYear());

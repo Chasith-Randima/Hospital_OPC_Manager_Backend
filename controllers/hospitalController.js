@@ -264,7 +264,6 @@ const upload = multer({
 exports.uploadHospitalImages = upload.fields([{ name: "images", maxCount: 5 }]);
 
 exports.resizeHospitalImages = catchAsync(async (req, res, next) => {
-  // console.log(req.files);
   if (!req.files.images) return next();
 
   req.body.images = [];
