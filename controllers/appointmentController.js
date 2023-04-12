@@ -55,7 +55,7 @@ exports.searchAppointment = catchAsync(async (req, res, next) => {
 });
 exports.searchPatientsAppointment = catchAsync(async (req, res, next) => {
   const { search, id } = req.query;
-  // console.log(typeof id, typeof search);
+
   if (search.length != 0) {
     await Appointment.find({
       $or: [

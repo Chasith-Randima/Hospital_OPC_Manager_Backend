@@ -12,7 +12,7 @@ exports.deleteOneTicket = factory.deleteOne(Ticket);
 
 exports.searchTicket = catchAsync(async (req, res, next) => {
   const { search } = req.query;
-  //   console.log(req.query);
+
   if (search.length != 0) {
     await Ticket.find({
       $or: [
