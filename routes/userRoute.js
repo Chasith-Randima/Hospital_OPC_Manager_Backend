@@ -8,6 +8,8 @@ router.post("/signup", authController.signup);
 router.post("/login", authController.login);
 router.get("/logout", authController.logout);
 
+router.get("/allUsers", userController.getAllUser);
+
 router.use("/search", userController.searchUsers);
 
 router.use("/image/:imageName", userController.getImage);

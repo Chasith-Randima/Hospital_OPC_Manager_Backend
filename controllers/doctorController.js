@@ -74,3 +74,36 @@ exports.getOneDoctor = factory.getOne(Doctor, [{ path: "appointments" }]);
 exports.getAllDoctors = factory.getAll(Doctor);
 exports.updateOneDoctor = factory.updateOne(Doctor);
 exports.deleteOneDoctor = factory.deleteOne(Doctor);
+
+exports.searchDoctor = catchAsync(async (req, res, next) => {
+  const { search } = req.query;
+  //   console.log(req.query);
+  if (search.length != 0) {
+    await Doctor.find({
+      $or: [
+        //   name: { $regex: search, $options: "i" },
+        { name: { $regex: search, $options: "i" } },
+        // { _id: { $regex: search, $options: "i" } },
+        //   _id: { $regex: search, $options: "i" },
+        // { active: { $regex: search, $options: "i" } },
+        // { patients: { $regex: search, $options: "i" } },
+        // { hospitals: { $regex: search, $options: "i" } },
+        // { appointmentDate: { $regex: search, $options: "i" } },
+      ],
+    })
+      .then((data) => {
+        res.status(200).json({
+          status: "success",
+          message: `${data.length} found...`,
+          data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          satus: "failed",
+          message: err,
+        });
+      });
+  }
+});

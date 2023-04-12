@@ -144,7 +144,7 @@ exports.restricTo = (...roles) => {
 };
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
-  const doctor = await Doctor.findById(req.doctor.id).select("+password");
+  const doctor = await Doctor.findById(req.params.id).select("+password");
 
   if (!doctor) {
     return next(

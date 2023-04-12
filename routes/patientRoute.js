@@ -5,6 +5,13 @@ const authPatient = require("../controllers/authPatientController");
 const patientController = require("../controllers/patientController");
 const authController = require("../controllers/authController");
 
+router.use(
+  "/getPatientsByCityAndHospital",
+  patientController.getPatientsByCityAndHospital
+);
+
+router.use("/getAllPatientsByCity", patientController.getAllPatientsByCity);
+
 router.post("/signup", authPatient.signup);
 router.post("/login", authPatient.login);
 router.get("/logout", authPatient.logout);
@@ -26,7 +33,8 @@ router
 
 router
   .route("/:id")
-  .get(authPatient.protect, patientController.getOnePatient)
+  .get(patientController.getOnePatient)
+  // .get(authPatient.protect, patientController.getOnePatient)
   .patch(
     authPatient.protect,
     patientController.uploadUserImages,

@@ -5,6 +5,7 @@ const sharp = require("sharp");
 const path = require("path");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const mongoose = require("mongoose");
 
 const multerStorage = multer.memoryStorage();
 
@@ -109,4 +110,37 @@ exports.searchPatient = catchAsync(async (req, res, next) => {
         });
       });
   }
+});
+
+exports.getPatientsByCityAndHospital = catchAsync(async (req, res, next) => {
+  console.log(req.query);
+  const city = req.query.city;
+  const hospitalID = req.query.hospitalId;
+  // console.log(hospitalID);
+  let ObjectId = new mongoose.Types.ObjectId(hospitalID);
+  // console.log(ObjectId);
+  stats = await Patient.aggregate([
+    {
+      $match: {
+        hospitals: { $in: [ObjectId] },
+      },
+    },
+    { $group: { _id: "$city", count: { $sum: 1 } } },
+  ]);
+
+  res.status(200).json({
+    status: "success",
+    stats,
+  });
+});
+exports.getAllPatientsByCity = catchAsync(async (req, res, next) => {
+  // console.log(ObjectId);
+  stats = await Patient.aggregate([
+    { $group: { _id: "$city", count: { $sum: 1 } } },
+  ]);
+
+  res.status(200).json({
+    status: "success",
+    stats,
+  });
 });

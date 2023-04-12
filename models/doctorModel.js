@@ -21,7 +21,7 @@ const doctorSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["doctor"],
+      enum: ["doctor", "director"],
       default: "doctor",
     },
     images: [String],

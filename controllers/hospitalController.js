@@ -1,6 +1,22 @@
 const Hospital = require("..//models/hospitalModel");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
+const multer = require("multer");
+const sharp = require("sharp");
+const path = require("path");
+
+exports.hospitalNameId = catchAsync(async (req, res, next) => {
+  const doc = await Hospital.find({}).select({ name: 1, _id: 1 });
+
+  if (doc) {
+    res.status(200).json({
+      status: "success",
+      message: `${doc.length} documents found...`,
+      results: doc.length,
+      doc,
+    });
+  }
+});
 
 exports.createOneHospital = factory.createOne(Hospital);
 // exports.getOneHospital = factory.getOne(Hospital, { path: "appointments" });
@@ -184,7 +200,7 @@ exports.updateHospitalNew = catchAsync(async (req, res, next) => {
 
   if (req.body.patients) {
     allPatients = req.body.patients;
-    allPatients
+    allPatients;
     req.body.patients = undefined;
   }
   if (req.body.users) {
@@ -224,5 +240,69 @@ exports.updateHospitalNew = catchAsync(async (req, res, next) => {
     status: "success",
     message: "Document updated successfully...",
     doc,
+  });
+});
+// ------------- add images -----------------------
+
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new AppError("Not an Image Please upload only an image..", 400), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+exports.uploadHospitalImages = upload.fields([{ name: "images", maxCount: 5 }]);
+
+exports.resizeHospitalImages = catchAsync(async (req, res, next) => {
+  // console.log(req.files);
+  if (!req.files.images) return next();
+
+  req.body.images = [];
+
+  await Promise.all(
+    req.files.images.map(async (file, i) => {
+      const filename = `hospital-${req.user._id}-${Date.now()}-${i + 1}.jpeg`;
+
+      await sharp(file.buffer)
+        .resize(2400, 1600)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(`public/img/hospitals/${filename}`);
+
+      req.body.images.push(filename);
+    })
+  );
+
+  next();
+});
+
+exports.getImage = catchAsync(async (req, res) => {
+  let fileName = req.params.imageName;
+
+  let options = {
+    root: path.join(__dirname, "../public/img/hospitals"),
+    dotfiles: "deny",
+    headers: {
+      "x-timestamp": Date.now(),
+      "x-sent": true,
+    },
+  };
+
+  res.sendFile(fileName, options, function (err) {
+    if (err) {
+      res.status(500).json({
+        err,
+      });
+    } else {
+      console.log("Sent:", fileName);
+    }
   });
 });

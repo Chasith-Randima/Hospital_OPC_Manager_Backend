@@ -21,7 +21,7 @@ const patientSchema = new mongoose.Schema(
     },
     city: {
       type: String,
-      required: [true, "A patient must have a city..."],
+      // required: [true, "A patient must have a city..."],
     },
     images: [String],
     email: {
@@ -63,7 +63,7 @@ const patientSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.ObjectId,
         ref: "Hospital",
-        required: [true, "Appointment must belong to a hospital"],
+        // required: [true, "Appointment must belong to a hospital"],
       },
     ],
   },

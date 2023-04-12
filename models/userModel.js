@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
     },
     hospitalName: {
       type: String,
-      required: [true, "User must belong to a Hospital"],
+      // required: [true, "User must belong to a Hospital"],
     },
     images: [String],
     email: {
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "pharmacist", "admin"],
+      enum: ["user", "stafff", "pharmacist", "admin"],
       default: "user",
     },
     password: {
@@ -45,14 +45,14 @@ const userSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.ObjectId,
         ref: "Hospital",
-        required: [true, "Appointment must belong to a hospital"],
+        // required: [true, "Appointment must belong to a hospital"],
       },
     ],
     tickets: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "Ticket",
-        required: [true, "A Ticket must have a pharmacist"],
+        // required: [true, "A Ticket must have a pharmacist"],
       },
     ],
 

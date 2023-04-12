@@ -16,6 +16,22 @@ const appointmentSchema = new mongoose.Schema(
       enum: [true, false],
       default: true,
     },
+    arrived: {
+      type: Boolean,
+      enum: [true, false],
+      default: false,
+    },
+    arrivedTime: {
+      type: String,
+    },
+    qued: {
+      type: Boolean,
+      enum: [true, false],
+      default: false,
+    },
+    queNumber: {
+      type: Number,
+    },
     appointmentDate: {
       type: Date,
       required: [true, "A appointment must have a date"],
@@ -24,6 +40,7 @@ const appointmentSchema = new mongoose.Schema(
       type: String,
       required: [true, "Ap appointment must have time"],
     },
+
     hospitals: [
       {
         type: mongoose.Schema.ObjectId,

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const ticketController = require("../controllers/ticketController");
 const authDoctor = require("../controllers/authDoctorController");
+const authController = require("../controllers/authController");
 
 router.use("/search", ticketController.searchTicket);
 
@@ -14,7 +15,7 @@ router
 router
   .route("/:id")
   .get(ticketController.getOneTicket)
-  .patch(authDoctor.protect, ticketController.updateOneTicket)
+  .patch(authController.protect, ticketController.updateOneTicket)
   .delete(ticketController.deleteOneTicket);
 
 module.exports = router;

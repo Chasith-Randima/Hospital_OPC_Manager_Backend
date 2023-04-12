@@ -8,6 +8,37 @@ const appointmentController = require("../controllers/appointmentController");
 router.use("/search", appointmentController.searchAppointment);
 router.use("/searchPatients", appointmentController.searchPatientsAppointment);
 
+router.use("/appointmentTimeStats", appointmentController.getAppointmentStats);
+router.use(
+  "/appointmentTimeStatsByMonth/",
+  appointmentController.getAppointmentStatsByMonth
+);
+router.use(
+  "/appointmentTimeStatsByYear/",
+  appointmentController.getAppointmentStatsByYear
+);
+router.use(
+  "/appointmentTimeStatsMonth",
+  appointmentController.getAppointmentStatsMonth
+);
+
+router.use(
+  "/getAppointmentsByTimeHospital",
+  appointmentController.getAppointmentsByTimeHospital
+);
+router.use(
+  "/getAppointmentsByTime",
+  appointmentController.getAppointmentsByTime
+);
+router.use(
+  "/getAppointmentsByDateHospital",
+  appointmentController.getAppointmentsByDateHospital
+);
+router.use(
+  "/getAllAppointmentsByDate",
+  appointmentController.getAllAppointmentsByDate
+);
+
 router
   .route("/")
   .get(appointmentController.getAllAppointment)
@@ -16,7 +47,8 @@ router
 router
   .route("/:id")
   .get(appointmentController.getOneAppointment)
-  .patch(authPatient.protect, appointmentController.updateOneAppointment)
+  .patch(appointmentController.updateOneAppointment)
+  // .patch(authPatient.protect, appointmentController.updateOneAppointment)
   .delete(authPatient.protect, appointmentController.deleteOneAppointment);
 
 router.delete(

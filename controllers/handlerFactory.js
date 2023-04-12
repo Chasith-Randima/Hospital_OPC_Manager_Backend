@@ -91,11 +91,11 @@ exports.getAll = (Model, popOptions) =>
       .limitFields();
 
     let totalCount = await count.query.countDocuments();
-    console.log(doc)
+    console.log(doc);
 
     res.status(200).json({
       status: "success",
-      message: `${doc.length} documents food...`,
+      message: `${doc.length} documents found...`,
       results: doc.length,
       totalCount,
       doc,
@@ -104,6 +104,7 @@ exports.getAll = (Model, popOptions) =>
 
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    console.log(req.body);
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
