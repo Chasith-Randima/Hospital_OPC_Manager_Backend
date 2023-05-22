@@ -8,7 +8,11 @@ const appointmentController = require("../controllers/appointmentController");
 router.use("/search", appointmentController.searchAppointment);
 router.use("/searchPatients", appointmentController.searchPatientsAppointment);
 
-router.use("/appointmentTimeStats", appointmentController.getAppointmentStats);
+router.use(
+  "/appointmentTimeStats",
+  appointmentController.getAppointmentStatsclsoded
+);
+// router.use("/appointmentTimeStats", appointmentController.getAppointmentStats);
 router.use(
   "/appointmentTimeStatsByMonth/",
   appointmentController.getAppointmentStatsByMonth

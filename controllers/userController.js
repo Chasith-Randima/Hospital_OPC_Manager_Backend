@@ -81,14 +81,7 @@ exports.searchUsers = catchAsync(async (req, res, next) => {
   if (search.length != 0) {
     await User.find({
       $or: [
-        //   name: { $regex: search, $options: "i" },
         { name: { $regex: search, $options: "i" } },
-        // { _id: { $regex: search, $options: "i" } },
-        //   _id: { $regex: search, $options: "i" },
-        // { active: { $regex: search, $options: "i" } },
-        // { patients: { $regex: search, $options: "i" } },
-        // { hospitals: { $regex: search, $options: "i" } },
-        // { appointmentDate: { $regex: search, $options: "i" } },
       ],
     })
       .then((data) => {

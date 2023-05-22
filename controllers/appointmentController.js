@@ -12,16 +12,10 @@ exports.deleteOneAppointment = factory.deleteOne(Appointment);
 exports.searchAppointment = catchAsync(async (req, res, next) => {
   const { search } = req.query;
   let date = new Date();
-  //   console.log(date.setHours(0, 0, 0));
-  //   console.log(date.setDate(date.getDate() + 1));
-  // console.log(date.setHours(0, 0, 0, 0));
-  // console.log(date.toISOString());
   let date2 = new Date();
-  // console.log(date2.setHours(0, 0, 0, 0));
   date2 = date2.setDate(date.getDate() + 1);
-  // console.log(typeof date, typeof date2);
   date = date.toISOString();
-  // console.log(new Date(date2).toISOString());
+
   date2 = new Date(date2).toISOString();
 
   //   console.log(req.query);
@@ -497,77 +491,25 @@ exports.getAppointmentStatsByMonthl = catchAsync(async (req, res, next) => {
   const getDaysInMonth = (year, month) => {
     return new Date(year, month, 0).getDate();
   };
-
-  // console.log(req.query);
   let month = req.query.month;
-  // console.log(month);
-  // let date = new Date();
   let dateOne = new Date(new Date().setMonth(month));
-  // console.log(dateOne);
   let date = new Date(dateOne.getFullYear(), dateOne.getMonth(), 1);
-  // console.log(date);
   let lastDay = new Date(dateOne.getFullYear(), dateOne.getMonth() + 1, 0);
-  // console.log("this is last day", lastDay);
   let date2 = new Date();
   date2.setUTCMonth(month);
-  // console.log(date2);
-  // let nextDate = new Date(date2.setDate(date.getDate() + 1)).toISOString();
-
   date = new Date(date);
   let tempDate;
-
   let length = new Date(date.getYear(), date.getMonth(), 0).getDate();
   // console.log("mongth size", length);
   let countArray = [];
   for (let i = 1; i <= length; i++) {
-    // console.log("-----one check-----");
-    // console.log(date);
-    // console.log(nextDate);
-    // console.log(date == lastDay);
-
     const stats = await Appointment.aggregate([
       {
         $match: {
           appointmentDate: { $gte: date, $lte: date2 },
-          // appointmentTime: { $gte: timeArray[i], $lte: timeArray[i + 1] },
         },
       },
       { $group: { _id: null, count: { $sum: 1 } } },
-      // {
-      //   $match: {
-      //     appointmentDate: {
-      //       $gte: date,
-      //       // $lte: date2,
-      //     },
-      //   },
-      // },
-      // {
-      //   $group: {
-      //     _id: { $toUpper: "$appointmentDate" },
-      //     numAppointments: { $sum: 1 },
-
-      //     // numRatings: { $sum: "$ratingsQuantity" },
-      //     // avgRating: { $avg: "$ratingsAverage" },
-      //     // avgPrice: { $avg: "$price" },
-      //     // minPrice: { $min: "$price" },
-      //     // maxPrice: { $max: "$price" },
-      //   },
-      // },
-      // {
-      //   $match: {
-      //     appointmentDate: {
-      //       $gte: date,
-      //       $lte: date2,
-      //     },
-      //   },
-      // },
-
-      // {
-      //   $sort: { avgPrice: 1 },
-      // },
-      // {
-      //   $match: { _id: { $ne: 'EASY' } }
-      // }
     ]);
     if (stats[0] != undefined) {
       console.log(stats[0].count);
